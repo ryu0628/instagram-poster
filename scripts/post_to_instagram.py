@@ -110,12 +110,7 @@ def publish_container(ig_user_id, access_token, creation_id):
     return result["id"]
 
 
-def main():
-    if len(sys.argv) != 2:
-        print("使い方: python scripts/post_to_instagram.py <post_id>")
-        sys.exit(1)
-
-    post_id = sys.argv[1]
+def publish_post(post_id):
     post_dir = os.path.join("queue", post_id)
     caption_path = os.path.join(post_dir, "caption.txt")
 
@@ -153,6 +148,14 @@ def main():
     wait_until_container_ready(creation_id, access_token)
     media_id = publish_container(ig_user_id, access_token, creation_id)
     print(f"[SUCCESS] 投稿完了。media_id={media_id}")
+    return media_id
+
+
+def main():
+    if len(sys.argv) != 2:
+        print("使い方: python scripts/post_to_instagram.py <post_id>")
+        sys.exit(1)
+    publish_post(sys.argv[1])
 
 
 if __name__ == "__main__":

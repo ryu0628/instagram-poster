@@ -58,10 +58,11 @@ gh secret set IG_ACCESS_TOKEN
 
 ## 5. 投稿する
 
-1. `queue/<post_id>/` フォルダに `caption.txt` と画像(`01.png`, `02.png`...)を配置(詳細は [queue/README.md](queue/README.md))
-2. `git add`, `commit`, `push`
-3. GitHubの Actions タブ →「Publish Instagram Post」→ Run workflow →`post_id`にフォルダ名を入力して実行
-4. 公開されたメディアIDがログに出力され、成功後は `queue/<post_id>/` が自動で `published/<post_id>/` に移動する
+1. `queue/<post_id>/` フォルダに `caption.txt` と画像(`01.jpg`, `02.jpg`... **JPEG形式必須**)を配置(詳細は [queue/README.md](queue/README.md))
+2. 公開方法を選ぶ:
+   - **すぐ公開**: `git add`, `commit`, `push` 後、Actionsタブ →「Publish Instagram Post」→ Run workflow →`post_id`にフォルダ名を入力して実行
+   - **日時指定で自動公開**: フォルダに `schedule.txt`(公開したい日時、タイムゾーン付きISO8601。例 `2026-08-05T09:00:00+09:00`)を追加してpush。「Publish Scheduled Instagram Posts」ワークフローが15分ごとに自動チェックし、予定時刻を過ぎたら自動で公開する(手動実行不要)
+3. 公開されたメディアIDがログに出力され、成功後は `queue/<post_id>/` が自動で `published/<post_id>/` に移動する
 
 投稿前に `insta-checker` の検品(合格判定)を経ていることを確認してから実行すること。
 
